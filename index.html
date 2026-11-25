@@ -136,6 +136,8 @@
               </select>
             </div>
 
+            <input id="f-honey" type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
             <button id="submit-btn" type="submit" class="btn btn--primary btn--full" data-i18n="formBtn">
               Get My Fair Cash Offer &rarr;
             </button>
@@ -512,8 +514,11 @@
   </footer>
 
   <script>
-    // Optional: Paste a Formspree or Web3Forms endpoint here for instant email alerts on static hosting
-    const STATIC_FORM_ENDPOINT = '';
+    // Free zero-signup email backend (activates on first test submission via email link)
+    const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/Triple1sglobal@gmail.com';
+    const FORMSUBMIT_CC = 'info@triple1global.com';
+    // Optional: Paste a Web3Forms Access Key (from https://web3forms.com) to route via Web3Forms instead
+    const WEB3FORMS_ACCESS_KEY = '';
 
     let currentLang = 'en';
     let lastLeadSummary = '';
@@ -864,6 +869,10 @@
 
     async function submitOffer(e) {
       e.preventDefault();
+      if (document.getElementById('f-honey') && document.getElementById('f-honey').value) {
+        return;
+      }
+
       const addr = document.getElementById('f-addr').value.trim();
       const zip = document.getElementById('f-zip').value.trim();
       const condition = document.getElementById('f-cond').value;
@@ -877,11 +886,12 @@
       submitBtn.disabled = true;
       submitBtn.textContent = currentLang === 'es' ? 'Enviando...' : 'Submitting...';
 
-      let crmSynced = false;
+      let delivered = false;
+      let needsActivation = false;
       let leadId = '';
       const payload = { addr, zip, condition, name, phone, email, timeline };
 
-      // 1. Try local FastAPI CRM endpoint first
+      // 1. Try local FastAPI CRM endpoint first (when running with Wholesale Terminal)
       try {
         const resp = await fetch('/api/website-lead', {
           method: 'POST',
@@ -890,22 +900,70 @@
         });
         if (resp.ok) {
           const data = await resp.json();
-          crmSynced = true;
+          delivered = true;
           leadId = data.lead_id || '';
         }
       } catch (_) {
-        // Static hosting fallback below
+        // Running on static hosting — proceed to FormSubmit / Web3Forms
       }
 
-      // 2. Optional Formspree/Web3Forms endpoint for static hosting
-      if (!crmSynced && STATIC_FORM_ENDPOINT) {
+      // 2. Route via Web3Forms if an access key is configured
+      if (!delivered && WEB3FORMS_ACCESS_KEY) {
         try {
-          const resp = await fetch(STATIC_FORM_ENDPOINT, {
+          const resp = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+              access_key: WEB3FORMS_ACCESS_KEY,
+              subject: `New Cash Offer Request: ${addr} (${zip})`,
+              from_name: 'Triple1s Real Estate Website',
+              'Property Address': addr,
+              'City / Zip': zip,
+              'Condition': condition,
+              'Seller Name': name,
+              'Phone': phone,
+              'Email': email || 'Not provided',
+              'Closing Timeline': timeline
+            })
           });
-          if (resp.ok) crmSynced = true;
+          const data = await resp.json().catch(() => ({}));
+          if (resp.ok && data.success) {
+            delivered = true;
+          }
+        } catch (_) {}
+      }
+
+      // 3. Default live static-hosting backend: FormSubmit AJAX (zero signup, activates on first email click)
+      if (!delivered && FORMSUBMIT_ENDPOINT) {
+        try {
+          const fsPayload = {
+            _subject: `New Cash Offer Request: ${addr} (${zip})`,
+            _cc: FORMSUBMIT_CC,
+            _template: 'table',
+            _captcha: 'false',
+            _honey: '',
+            'Property Address': addr,
+            'City / Zip': zip,
+            'Condition': condition,
+            'Seller Name': name,
+            'Phone': phone,
+            'Email': email || 'Not provided',
+            'Closing Timeline': timeline
+          };
+          if (email) fsPayload._replyto = email;
+
+          const resp = await fetch(FORMSUBMIT_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(fsPayload)
+          });
+          const data = await resp.json().catch(() => ({}));
+          const msg = String(data.message || '').toLowerCase();
+          if (resp.ok && (data.success === true || data.success === 'true')) {
+            delivered = true;
+          } else if (msg.includes('activat')) {
+            needsActivation = true;
+          }
         } catch (_) {}
       }
 
@@ -923,29 +981,55 @@
 
       const subject = encodeURIComponent(`Cash Offer Request: ${addr} (${zip})`);
       const body = encodeURIComponent(lastLeadSummary);
-      const mailtoHref = `mailto:info@triple1global.com?cc=Triple1sglobal@gmail.com&subject=${subject}&body=${body}`;
+      const mailtoHref = `mailto:Triple1sglobal@gmail.com?cc=info@triple1global.com&subject=${subject}&body=${body}`;
 
       const res = document.getElementById('form-result');
       res.classList.remove('is-hidden');
 
-      if (currentLang === 'es') {
+      if (delivered) {
+        document.getElementById('cash-offer-form').reset();
+        if (currentLang === 'es') {
+          res.innerHTML = `
+            <div class="form-result-title">Solicitud Enviada${leadId ? ` (#${escHtml(leadId)})` : ''} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+            <div>Gracias, <strong>${escHtml(name)}</strong>. Hemos recibido su solicitud en <strong>Triple1s Real Estate Solutions</strong> y nos comunicaremos al <strong>${escHtml(phone)}</strong> en menos de 24 horas.</div>
+          `;
+        } else {
+          res.innerHTML = `
+            <div class="form-result-title">Cash Offer Request Received${leadId ? ` (#${escHtml(leadId)})` : ''} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+            <div>Thank you, <strong>${escHtml(name)}</strong>. Your request has been sent directly to <strong>Triple1s Real Estate Solutions</strong>. We will review your property and reach out to <strong>${escHtml(phone)}</strong> within 24 hours.</div>
+          `;
+        }
+      } else if (needsActivation) {
         res.innerHTML = `
-          <div class="form-result-title">${crmSynced ? `Solicitud Registrada${leadId ? ` (#${escHtml(leadId)})` : ''}` : 'Solicitud Lista Para Enviar'} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
-          <div>Gracias, <strong>${escHtml(name)}</strong>. Nuestro equipo de <strong>Triple1s Real Estate Solutions</strong> revisará su propiedad y se comunicará al <strong>${escHtml(phone)}</strong> en menos de 24 horas.</div>
+          <div class="form-result-title">${currentLang === 'es' ? 'Activación Única Requerida' : 'One-Time Form Activation Email Sent'}</div>
+          <div>${currentLang === 'es'
+            ? 'FormSubmit envió un enlace único de activación a <strong>Triple1sglobal@gmail.com</strong>. Haga clic en "Activate Form" en ese correo y todas las solicitudes futuras llegarán automáticamente.'
+            : 'FormSubmit just sent a one-time activation link to <strong>Triple1sglobal@gmail.com</strong>. Click "Activate Form" in that email once, and all future leads will deliver straight to your inbox automatically.'}</div>
           <div class="form-result-actions">
-            <a href="${mailtoHref}" class="btn btn--primary btn--sm">Enviar por Correo Ahora &rarr;</a>
-            <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copiar Resumen</button>
+            <a href="${mailtoHref}" class="btn btn--primary btn--sm">${currentLang === 'es' ? 'Enviar Esta Solicitud por Correo →' : 'Email This Request Now →'}</a>
+            <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">${currentLang === 'es' ? 'Copiar Resumen' : 'Copy Summary'}</button>
           </div>
         `;
       } else {
-        res.innerHTML = `
-          <div class="form-result-title">${crmSynced ? `Request Logged${leadId ? ` (#${escHtml(leadId)})` : ''}` : 'Request Ready to Send'} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
-          <div>Thank you, <strong>${escHtml(name)}</strong>. Our team at <strong>Triple1s Real Estate Solutions</strong> will review your property and reach out to <strong>${escHtml(phone)}</strong> within 24 hours.</div>
-          <div class="form-result-actions">
-            <a href="${mailtoHref}" class="btn btn--primary btn--sm">Email Request Now &rarr;</a>
-            <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copy Summary</button>
-          </div>
-        `;
+        if (currentLang === 'es') {
+          res.innerHTML = `
+            <div class="form-result-title">Solicitud Lista Para Enviar &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+            <div>Gracias, <strong>${escHtml(name)}</strong>. Use el botón abajo para enviar su solicitud directamente a nuestro equipo y nos comunicaremos al <strong>${escHtml(phone)}</strong> en menos de 24 horas.</div>
+            <div class="form-result-actions">
+              <a href="${mailtoHref}" class="btn btn--primary btn--sm">Enviar por Correo Ahora &rarr;</a>
+              <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copiar Resumen</button>
+            </div>
+          `;
+        } else {
+          res.innerHTML = `
+            <div class="form-result-title">Request Ready to Send &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+            <div>Thank you, <strong>${escHtml(name)}</strong>. Click below to dispatch your request directly to our team and we will reach out to <strong>${escHtml(phone)}</strong> within 24 hours.</div>
+            <div class="form-result-actions">
+              <a href="${mailtoHref}" class="btn btn--primary btn--sm">Email Request Now &rarr;</a>
+              <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copy Summary</button>
+            </div>
+          `;
+        }
       }
     }
 
