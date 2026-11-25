@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Triple1s Real Estate Solutions | Miami-Dade &amp; Broward Cash Home Buyers</title>
+  <meta name="description" content="Sell your Miami-Dade or Broward County house fast, as-is, for a fair cash offer with 0% commissions. Licensed Florida title company closings in as little as 14 days." />
+  <meta property="og:title" content="Triple1s Real Estate Solutions | South Florida Cash Home Buyers" />
+  <meta property="og:description" content="No repairs, no realtor commissions, no open houses. Request a direct, confidential cash offer for your Miami-Dade or Broward property." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/miami-home-hero.jpg" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F223D'/%3E%3Crect x='3' y='3' width='58' height='58' rx='11' fill='none' stroke='%23DFC08A' stroke-width='2' stroke-opacity='0.45'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='25' fill='%23DFC08A'%3E111%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="Triple1s Real Estate Solutions Home">
+        <div class="brand-mark" aria-hidden="true">111</div>
+        <div class="brand-text">
+          <span class="brand-name">Triple1s Real Estate Solutions</span>
+          <span class="brand-sub" data-i18n="brandSub">Miami-Dade &amp; Broward &middot; Triple1s Global, LLC</span>
+        </div>
+      </a>
+
+      <div class="nav-wrap">
+        <nav class="nav-links" aria-label="Primary Navigation">
+          <a href="#calculator" data-i18n="navCalc">Net Calculator</a>
+          <a href="#how-it-works" data-i18n="navSteps">How It Works</a>
+          <a href="#areas" data-i18n="navAreas">Areas Served</a>
+          <a href="#faq" data-i18n="navFaq">FAQ</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="lang-toggle" role="group" aria-label="Language Selector">
+            <button id="lang-en" type="button" class="lang-btn is-active" onclick="setLang('en')">EN</button>
+            <button id="lang-es" type="button" class="lang-btn" onclick="setLang('es')">ES</button>
+          </div>
+          <a href="#offer-form" class="btn btn--primary btn--sm header-cta" data-i18n="navCta">Get Cash Offer</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero + Direct Cash Offer Intake -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow" data-i18n="badge">Miami-Dade &amp; Broward Counties, Florida</p>
+          <h1 class="hero-title" data-i18n="heroTitle">
+            Sell Your South Florida Home As-Is for a Fair Cash Offer.
+          </h1>
+          <p class="hero-sub" data-i18n="heroSub">
+            Skip the repairs, agent commissions, and months on the market. Triple1s Real Estate Solutions buys directly on your timeline and closes through a licensed Florida title company.
+          </p>
+
+          <figure class="hero-media" style="margin:0">
+            <img
+              src="./assets/miami-home-hero.jpg"
+              alt="Sunlit South Florida Mediterranean single-family home with palm trees"
+              width="1376"
+              height="768"
+              loading="eager"
+            />
+            <div class="hero-metrics">
+              <div class="metric-cell">
+                <div class="metric-val" data-i18n="pill1Title">0% Commissions</div>
+                <div class="metric-desc" data-i18n="pill1Sub">Keep more equity with zero brokerage fees</div>
+              </div>
+              <div class="metric-cell">
+                <div class="metric-val" data-i18n="pill2Title">100% As-Is</div>
+                <div class="metric-desc" data-i18n="pill2Sub">Code violations, open permits &amp; repairs handled</div>
+              </div>
+              <div class="metric-cell">
+                <div class="metric-val" data-i18n="pill3Title">14-Day Close</div>
+                <div class="metric-desc" data-i18n="pill3Sub">Or choose your exact move-out date</div>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <!-- Offer Form Card -->
+        <aside id="offer-form" class="offer-card" aria-labelledby="offer-form-heading">
+          <h2 id="offer-form-heading" class="offer-card-title" data-i18n="formTitle">Request Your No-Obligation Cash Offer</h2>
+          <p class="offer-card-sub" data-i18n="formSub">Takes 60 seconds. Direct, confidential review within 24 hours.</p>
+
+          <form id="cash-offer-form" class="form-stack" onsubmit="submitOffer(event)">
+            <div class="field">
+              <label for="f-addr" data-i18n="lblAddr">Property Street Address *</label>
+              <input id="f-addr" name="addr" required type="text" autocomplete="street-address" placeholder="e.g. 1420 NW 119th St" />
+            </div>
+
+            <div class="form-row-2">
+              <div class="field">
+                <label for="f-zip" data-i18n="lblZip">City / Zip Code *</label>
+                <input id="f-zip" name="zip" required type="text" autocomplete="postal-code" placeholder="e.g. Miami, 33167" />
+              </div>
+              <div class="field">
+                <label for="f-cond" data-i18n="lblCond">Property Condition</label>
+                <select id="f-cond" name="condition">
+                  <option value="Needs Major Repairs" data-i18n="optMajor">Needs Major Repairs</option>
+                  <option value="Needs Cosmetic Updates" data-i18n="optCosmetic">Needs Cosmetic Updates</option>
+                  <option value="Good Condition / Tenant Occupied" data-i18n="optGood">Good / Tenant Occupied</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="field">
+                <label for="f-name" data-i18n="lblName">Your Full Name *</label>
+                <input id="f-name" name="name" required type="text" autocomplete="name" placeholder="Full Name" />
+              </div>
+              <div class="field">
+                <label for="f-phone" data-i18n="lblPhone">Phone Number *</label>
+                <input id="f-phone" name="phone" required type="tel" autocomplete="tel" placeholder="(305) 555-0199" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-email" data-i18n="lblEmail">Email Address (Optional)</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+            </div>
+
+            <div class="field">
+              <label for="f-timeline" data-i18n="lblTimeline">Preferred Closing Timeline</label>
+              <select id="f-timeline" name="timeline">
+                <option value="ASAP (14-21 days)" data-i18n="optAsap">ASAP (14–21 days)</option>
+                <option value="30-45 days" data-i18n="opt30">30–45 days</option>
+                <option value="60+ days / Flexible" data-i18n="optFlex">Flexible / Just exploring</option>
+              </select>
+            </div>
+
+            <button id="submit-btn" type="submit" class="btn btn--primary btn--full" data-i18n="formBtn">
+              Get My Fair Cash Offer &rarr;
+            </button>
+          </form>
+
+          <p class="form-note" data-i18n="formPrivacy">100% confidential &middot; Zero fees &middot; No obligation to accept</p>
+
+          <div id="form-result" class="form-result is-hidden" role="status" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Trust Credentials Strip -->
+    <section class="trust-strip" aria-label="Core Guarantees">
+      <div class="container trust-grid">
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span data-i18n="trust1">Licensed FL Title Escrow</span>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h6M7 16h4"/></svg>
+          <span data-i18n="trust2">Remote &amp; Mobile Notary Closings</span>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span data-i18n="trust4">Written Offer Within 24 Hours</span>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span data-i18n="trust3">Hablamos Espa&ntilde;ol (100% Bilingual)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Net Proceeds Calculator -->
+    <section id="calculator" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow" data-i18n="calcEyebrow">Transparent Math</p>
+          <h2 class="section-title" data-i18n="calcHeading">Estimate Your Net Proceeds: Cash Offer vs. Listing</h2>
+          <p class="section-sub" data-i18n="calcSub">See how realtor commissions, closing costs, out-of-pocket repairs, and months of holding expenses impact what you actually take home.</p>
+        </div>
+
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div style="display:flex;flex-direction:column;gap:26px;">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label for="c-arv" data-i18n="calcValLbl">Estimated Renovated Value (ARV)</label>
+                  <span id="c-arv-out" class="slider-value num">$375,000</span>
+                </div>
+                <input id="c-arv" class="range-input" type="range" min="150000" max="900000" step="5000" value="375000" oninput="updateCalculator()" />
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label for="c-repairs" data-i18n="calcRepLbl">Estimated Repairs / Roof / Permits</label>
+                  <span id="c-repairs-out" class="slider-value num">$50,000</span>
+                </div>
+                <input id="c-repairs" class="range-input" type="range" min="0" max="150000" step="2500" value="50000" oninput="updateCalculator()" />
+              </div>
+            </div>
+
+            <p class="calc-footnote" data-i18n="calcNote">
+              * Estimates assume 6% traditional brokerage commissions, 2% seller closing costs, and 3 months of South Florida property taxes, insurance, and mortgage holding costs (~$7,500) during a retail listing.
+            </p>
+          </div>
+
+          <div class="calc-results-wrap">
+            <div class="calc-cards">
+              <div class="calc-card">
+                <div>
+                  <div class="calc-card-kicker" data-i18n="calcTradTitle">Traditional Agent Sale</div>
+                  <div class="calc-rows">
+                    <div class="calc-row">
+                      <span data-i18n="calcSalePrice">Retail Sale Price</span>
+                      <strong id="ct-price" class="num"></strong>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcComm">Agent Commissions (6%)</span>
+                      <span id="ct-comm" class="num"></span>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcClose">Closing &amp; 3-Mo Holding</span>
+                      <span id="ct-close" class="num"></span>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcRepairs">Out-of-Pocket Repairs</span>
+                      <span id="ct-rep" class="num"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="calc-total">
+                  <span class="calc-total-label" data-i18n="calcEstNet">Est. Net (60–90+ Days)</span>
+                  <span id="ct-net" class="calc-total-value num"></span>
+                </div>
+              </div>
+
+              <div class="calc-card calc-card--featured">
+                <div>
+                  <div class="calc-card-kicker" data-i18n="calcT1Title">Triple1s Direct Cash Offer</div>
+                  <div class="calc-rows">
+                    <div class="calc-row">
+                      <span data-i18n="calcAsIs">As-Is Cash Offer Range</span>
+                      <strong id="c1-range" class="num"></strong>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcComm0">Realtor Commissions</span>
+                      <span class="is-good num">$0</span>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcRep0">Repairs &amp; Inspections</span>
+                      <span class="is-good num">$0</span>
+                    </div>
+                    <div class="calc-row">
+                      <span data-i18n="calcHold0">Closing Timeline</span>
+                      <span class="is-good" data-i18n="calc14d">14–21 Days</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="calc-total">
+                  <span class="calc-total-label" data-i18n="calcFastNet">Certainty Cash Range</span>
+                  <span id="c1-net" class="calc-total-value num"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-summary-bar">
+              <span id="calc-avoid-text"></span>
+              <a href="#offer-form" class="btn btn--primary btn--sm" data-i18n="calcCta">Request Exact Offer &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Step Process (Deep Coastal Navy Band) -->
+    <section id="how-it-works" class="section section--navy">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow" data-i18n="stepsEyebrow">Simple, Transparent Process</p>
+          <h2 class="section-title" data-i18n="stepsHeading">How Selling to Triple1s Works</h2>
+          <p class="section-sub" data-i18n="stepsSub">From first conversation to wired funds at closing, we keep every step clear, respectful, and on your schedule.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num num">01</div>
+            <h3 class="step-title" data-i18n="s1Title">Share Your Property Details</h3>
+            <p class="step-body" data-i18n="s1Body">Submit your address above or email our acquisitions desk. We review Miami-Dade or Broward public records, open permits, and neighborhood comps within 24 hours.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num num">02</div>
+            <h3 class="step-title" data-i18n="s2Title">Receive a Written Cash Offer</h3>
+            <p class="step-body" data-i18n="s2Body">After a brief 15-minute walkthrough (or photo review for out-of-state owners), we present a clear, written cash offer with zero hidden fees or pressure.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num num">03</div>
+            <h3 class="step-title" data-i18n="s3Title">Close at a Florida Title Company</h3>
+            <p class="step-body" data-i18n="s3Body">We open escrow with an established South Florida title company (with remote or mobile notary options) and wire your funds on the closing date you choose.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Situations We Solve + Side-by-Side Comparison -->
+    <section class="section">
+      <div class="container split-grid">
+        <div class="panel-card">
+          <h2 class="panel-title" data-i18n="sitTitle">South Florida Situations We Help Solve</h2>
+          <p class="panel-sub" data-i18n="sitSub">Whatever condition or legal complexity your property carries, our team works with local title partners to resolve it cleanly.</p>
+          <ul class="situations-grid">
+            <li class="situation-item">
+              <strong data-i18n="sit1">Inherited &amp; Probate Homes</strong>
+              <span data-i18n="sit1Desc">Coordinated with Florida probate attorneys and out-of-state heirs.</span>
+            </li>
+            <li class="situation-item">
+              <strong data-i18n="sit2">Code Violations &amp; Open Permits</strong>
+              <span data-i18n="sit2Desc">Municipal liens and unpermitted work handled without upfront cash.</span>
+            </li>
+            <li class="situation-item">
+              <strong data-i18n="sit3">Delinquent Property Taxes</strong>
+              <span data-i18n="sit3Desc">Pay off back taxes directly from closing proceeds before auction.</span>
+            </li>
+            <li class="situation-item">
+              <strong data-i18n="sit4">Pre-Foreclosure Relief</strong>
+              <span data-i18n="sit4Desc">Fast closings structured to protect your remaining equity and credit.</span>
+            </li>
+            <li class="situation-item">
+              <strong data-i18n="sit5">Tired Landlords &amp; Tenants</strong>
+              <span data-i18n="sit5Desc">Sell tenant-occupied properties as-is without waiting for leases to end.</span>
+            </li>
+            <li class="situation-item">
+              <strong data-i18n="sit6">Roof, Mold, or Storm Damage</strong>
+              <span data-i18n="sit6Desc">No insurance battles, 4-point inspections, or contractor delays.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel-card">
+          <h2 class="panel-title" data-i18n="compTitle">Triple1s vs. Traditional Listing</h2>
+          <p class="panel-sub" data-i18n="compSub">Compare direct speed and certainty against the retail MLS process.</p>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th data-i18n="thFactor">Factor</th>
+                <th class="col-t1" data-i18n="thT1">Triple1s Solutions</th>
+                <th data-i18n="thTrad">Traditional Agent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="factor-cell" data-i18n="r1Col1">Commissions / Fees</td>
+                <td class="t1-cell" data-i18n="r1Col2">$0 (None)</td>
+                <td class="trad-cell" data-i18n="r1Col3">5% – 6% of sale price</td>
+              </tr>
+              <tr>
+                <td class="factor-cell" data-i18n="r2Col1">Repairs &amp; Permits</td>
+                <td class="t1-cell" data-i18n="r2Col2">Sold 100% As-Is</td>
+                <td class="trad-cell" data-i18n="r2Col3">Inspection credits &amp; repairs</td>
+              </tr>
+              <tr>
+                <td class="factor-cell" data-i18n="r3Col1">Closing Timeline</td>
+                <td class="t1-cell" data-i18n="r3Col2">14–21 Days (Your choice)</td>
+                <td class="trad-cell" data-i18n="r3Col3">45–90+ Days</td>
+              </tr>
+              <tr>
+                <td class="factor-cell" data-i18n="r4Col1">Showings &amp; Privacy</td>
+                <td class="t1-cell" data-i18n="r4Col2">1 Quick Walkthrough</td>
+                <td class="trad-cell" data-i18n="r4Col3">Dozens of open houses</td>
+              </tr>
+              <tr>
+                <td class="factor-cell" data-i18n="r5Col1">Financing Fall-Through</td>
+                <td class="t1-cell" data-i18n="r5Col2">None (Cash Buyers)</td>
+                <td class="trad-cell" data-i18n="r5Col3">Appraisal &amp; loan risk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local South Florida Presence & Service Areas -->
+    <section id="areas" class="section section--sand">
+      <div class="container areas-grid">
+        <figure class="area-photo" style="margin:0">
+          <img
+            src="./assets/south-florida-interior.jpg"
+            alt="Bright sunlit South Florida coastal home living room overlooking palm trees"
+            width="1200"
+            height="896"
+            loading="lazy"
+          />
+          <figcaption class="area-caption" data-i18n="areaCaption">Local South Florida Acquisitions &middot; Miami-Dade &amp; Broward</figcaption>
+        </figure>
+
+        <div>
+          <p class="eyebrow" data-i18n="areasEyebrow">Local Market Expertise</p>
+          <h2 class="section-title" data-i18n="areasTitle">Built Specifically for Miami-Dade &amp; Broward Homeowners.</h2>
+          <p class="section-sub" data-i18n="areasSub">
+            South Florida real estate comes with unique realities—municipal lien searches, expired permits, insurance roof requirements, and HOA estoppels. Because we buy exclusively across Miami-Dade and Broward Counties, we price accurately and close smoothly.
+          </p>
+
+          <div class="county-block">
+            <h3 class="county-label" data-i18n="miamiLabel">Miami-Dade County</h3>
+            <div class="city-list">
+              <span class="city-tag">Miami</span>
+              <span class="city-tag">Coral Gables</span>
+              <span class="city-tag">Hialeah</span>
+              <span class="city-tag">Homestead</span>
+              <span class="city-tag">Kendall</span>
+              <span class="city-tag">North Miami</span>
+              <span class="city-tag">Miami Gardens</span>
+              <span class="city-tag">Doral</span>
+              <span class="city-tag">Opa-locka</span>
+            </div>
+          </div>
+
+          <div class="county-block">
+            <h3 class="county-label" data-i18n="browardLabel">Broward County</h3>
+            <div class="city-list">
+              <span class="city-tag">Fort Lauderdale</span>
+              <span class="city-tag">Hollywood</span>
+              <span class="city-tag">Pembroke Pines</span>
+              <span class="city-tag">Miramar</span>
+              <span class="city-tag">Pompano Beach</span>
+              <span class="city-tag">Coral Springs</span>
+              <span class="city-tag">Plantation</span>
+              <span class="city-tag">Lauderhill</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section id="faq" class="section">
+      <div class="container container--narrow">
+        <div class="section-header">
+          <p class="eyebrow" data-i18n="faqEyebrow">Straightforward Answers</p>
+          <h2 class="section-title" data-i18n="faqHeading">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>
+              <span data-i18n="faq1Q">Do I have to fix code violations, open permits, or roof issues before selling?</span>
+              <span class="faq-plus" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer" data-i18n="faq1A">No. We purchase Miami-Dade and Broward properties 100% as-is. Our title team orders municipal lien and permit searches upfront so you never have to pay out-of-pocket for repairs or contractors.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span data-i18n="faq2Q">How do I know the closing is safe and legitimate?</span>
+              <span class="faq-plus" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer" data-i18n="faq2A">Every closing is conducted through a licensed Florida title company or real estate closing attorney. Funds are verified in escrow and wired directly to your bank account at closing.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span data-i18n="faq3Q">What if I live out of state or inherited a property in probate?</span>
+              <span class="faq-plus" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer" data-i18n="faq3A">We regularly work with out-of-state owners and heirs. We coordinate remote online notarization (RON) or mobile notaries, and work alongside Florida probate attorneys whenever needed.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span data-i18n="faq4Q">Is there any cost or obligation to request an offer?</span>
+              <span class="faq-plus" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer" data-i18n="faq4A">Zero cost and zero obligation. You review our written offer on your own time and decide what makes the most sense for your family and timeline.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2 data-i18n="ctaTitle">Ready to See What Your South Florida Home Is Worth in Cash?</h2>
+            <p data-i18n="ctaSub">Get a confidential, written offer within 24 hours—no repairs, no commissions, and no obligation.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="#offer-form" class="btn btn--primary" data-i18n="ctaBtn">Request My Cash Offer &rarr;</a>
+            <a href="mailto:info@triple1global.com?subject=Cash%20Offer%20Inquiry" class="btn btn--outline" data-i18n="ctaEmail">Email Our Team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">Triple1s Real Estate Solutions</div>
+          <div class="footer-sub" data-i18n="footerDiv">A Division of Triple1s Global, LLC &middot; Miami-Dade &amp; Broward Counties, FL</div>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:info@triple1global.com">info@triple1global.com</a>
+          <a href="mailto:Triple1sglobal@gmail.com">Triple1sglobal@gmail.com</a>
+        </div>
+      </div>
+      <p class="footer-disclosure" data-i18n="disclosure">
+        Disclosure: Triple1s Global, LLC (dba Triple1s Real Estate Solutions) is a real estate investment company acting strictly as a principal in the acquisition of properties and/or contractual equitable interests. We are not acting as licensed Florida real estate brokers or attorneys. All closings are conducted through licensed Florida title agencies or real estate closing attorneys.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Optional: Paste a Formspree or Web3Forms endpoint here for instant email alerts on static hosting
+    const STATIC_FORM_ENDPOINT = '';
+
+    let currentLang = 'en';
+    let lastLeadSummary = '';
+
+    function escHtml(v) {
+      return String(v ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    const I18N = {
+      en: {
+        brandSub: 'Miami-Dade & Broward · Triple1s Global, LLC',
+        navCalc: 'Net Calculator',
+        navSteps: 'How It Works',
+        navAreas: 'Areas Served',
+        navFaq: 'FAQ',
+        navCta: 'Get Cash Offer',
+        badge: 'Miami-Dade & Broward Counties, Florida',
+        heroTitle: 'Sell Your South Florida Home As-Is for a Fair Cash Offer.',
+        heroSub: 'Skip the repairs, agent commissions, and months on the market. Triple1s Real Estate Solutions buys directly on your timeline and closes through a licensed Florida title company.',
+        pill1Title: '0% Commissions',
+        pill1Sub: 'Keep more equity with zero brokerage fees',
+        pill2Title: '100% As-Is',
+        pill2Sub: 'Code violations, open permits & repairs handled',
+        pill3Title: '14-Day Close',
+        pill3Sub: 'Or choose your exact move-out date',
+        formTitle: 'Request Your No-Obligation Cash Offer',
+        formSub: 'Takes 60 seconds. Direct, confidential review within 24 hours.',
+        lblAddr: 'Property Street Address *',
+        lblZip: 'City / Zip Code *',
+        lblCond: 'Property Condition',
+        lblName: 'Your Full Name *',
+        lblPhone: 'Phone Number *',
+        lblEmail: 'Email Address (Optional)',
+        lblTimeline: 'Preferred Closing Timeline',
+        optMajor: 'Needs Major Repairs',
+        optCosmetic: 'Needs Cosmetic Updates',
+        optGood: 'Good / Tenant Occupied',
+        optAsap: 'ASAP (14–21 days)',
+        opt30: '30–45 days',
+        optFlex: 'Flexible / Just exploring',
+        phAddr: 'e.g. 1420 NW 119th St',
+        phZip: 'e.g. Miami, 33167',
+        phName: 'Full Name',
+        phPhone: '(305) 555-0199',
+        phEmail: 'you@example.com',
+        formBtn: 'Get My Fair Cash Offer →',
+        formPrivacy: '100% confidential · Zero fees · No obligation to accept',
+        trust1: 'Licensed FL Title Escrow',
+        trust2: 'Remote & Mobile Notary Closings',
+        trust4: 'Written Offer Within 24 Hours',
+        trust3: 'Hablamos Español (100% Bilingual)',
+        calcEyebrow: 'Transparent Math',
+        calcHeading: 'Estimate Your Net Proceeds: Cash Offer vs. Listing',
+        calcSub: 'See how realtor commissions, closing costs, out-of-pocket repairs, and months of holding expenses impact what you actually take home.',
+        calcValLbl: 'Estimated Renovated Value (ARV)',
+        calcRepLbl: 'Estimated Repairs / Roof / Permits',
+        calcNote: '* Estimates assume 6% traditional brokerage commissions, 2% seller closing costs, and 3 months of South Florida property taxes, insurance, and mortgage holding costs (~$7,500) during a retail listing.',
+        calcTradTitle: 'Traditional Agent Sale',
+        calcSalePrice: 'Retail Sale Price',
+        calcComm: 'Agent Commissions (6%)',
+        calcClose: 'Closing & 3-Mo Holding',
+        calcRepairs: 'Out-of-Pocket Repairs',
+        calcEstNet: 'Est. Net (60–90+ Days)',
+        calcT1Title: 'Triple1s Direct Cash Offer',
+        calcAsIs: 'As-Is Cash Offer Range',
+        calcComm0: 'Realtor Commissions',
+        calcRep0: 'Repairs & Inspections',
+        calcHold0: 'Closing Timeline',
+        calc14d: '14–21 Days',
+        calcFastNet: 'Certainty Cash Range',
+        calcCta: 'Request Exact Offer →',
+        stepsEyebrow: 'Simple, Transparent Process',
+        stepsHeading: 'How Selling to Triple1s Works',
+        stepsSub: 'From first conversation to wired funds at closing, we keep every step clear, respectful, and on your schedule.',
+        s1Title: 'Share Your Property Details',
+        s1Body: 'Submit your address above or email our acquisitions desk. We review Miami-Dade or Broward public records, open permits, and neighborhood comps within 24 hours.',
+        s2Title: 'Receive a Written Cash Offer',
+        s2Body: 'After a brief 15-minute walkthrough (or photo review for out-of-state owners), we present a clear, written cash offer with zero hidden fees or pressure.',
+        s3Title: 'Close at a Florida Title Company',
+        s3Body: 'We open escrow with an established South Florida title company (with remote or mobile notary options) and wire your funds on the closing date you choose.',
+        sitTitle: 'South Florida Situations We Help Solve',
+        sitSub: 'Whatever condition or legal complexity your property carries, our team works with local title partners to resolve it cleanly.',
+        sit1: 'Inherited & Probate Homes',
+        sit1Desc: 'Coordinated with Florida probate attorneys and out-of-state heirs.',
+        sit2: 'Code Violations & Open Permits',
+        sit2Desc: 'Municipal liens and unpermitted work handled without upfront cash.',
+        sit3: 'Delinquent Property Taxes',
+        sit3Desc: 'Pay off back taxes directly from closing proceeds before auction.',
+        sit4: 'Pre-Foreclosure Relief',
+        sit4Desc: 'Fast closings structured to protect your remaining equity and credit.',
+        sit5: 'Tired Landlords & Tenants',
+        sit5Desc: 'Sell tenant-occupied properties as-is without waiting for leases to end.',
+        sit6: 'Roof, Mold, or Storm Damage',
+        sit6Desc: 'No insurance battles, 4-point inspections, or contractor delays.',
+        compTitle: 'Triple1s vs. Traditional Listing',
+        compSub: 'Compare direct speed and certainty against the retail MLS process.',
+        thFactor: 'Factor',
+        thT1: 'Triple1s Solutions',
+        thTrad: 'Traditional Agent',
+        r1Col1: 'Commissions / Fees',
+        r1Col2: '$0 (None)',
+        r1Col3: '5% – 6% of sale price',
+        r2Col1: 'Repairs & Permits',
+        r2Col2: 'Sold 100% As-Is',
+        r2Col3: 'Inspection credits & repairs',
+        r3Col1: 'Closing Timeline',
+        r3Col2: '14–21 Days (Your choice)',
+        r3Col3: '45–90+ Days',
+        r4Col1: 'Showings & Privacy',
+        r4Col2: '1 Quick Walkthrough',
+        r4Col3: 'Dozens of open houses',
+        r5Col1: 'Financing Fall-Through',
+        r5Col2: 'None (Cash Buyers)',
+        r5Col3: 'Appraisal & loan risk',
+        areaCaption: 'Local South Florida Acquisitions · Miami-Dade & Broward',
+        areasEyebrow: 'Local Market Expertise',
+        areasTitle: 'Built Specifically for Miami-Dade & Broward Homeowners.',
+        areasSub: 'South Florida real estate comes with unique realities—municipal lien searches, expired permits, insurance roof requirements, and HOA estoppels. Because we buy exclusively across Miami-Dade and Broward Counties, we price accurately and close smoothly.',
+        miamiLabel: 'Miami-Dade County',
+        browardLabel: 'Broward County',
+        faqEyebrow: 'Straightforward Answers',
+        faqHeading: 'Frequently Asked Questions',
+        faq1Q: 'Do I have to fix code violations, open permits, or roof issues before selling?',
+        faq1A: 'No. We purchase Miami-Dade and Broward properties 100% as-is. Our title team orders municipal lien and permit searches upfront so you never have to pay out-of-pocket for repairs or contractors.',
+        faq2Q: 'How do I know the closing is safe and legitimate?',
+        faq2A: 'Every closing is conducted through a licensed Florida title company or real estate closing attorney. Funds are verified in escrow and wired directly to your bank account at closing.',
+        faq3Q: 'What if I live out of state or inherited a property in probate?',
+        faq3A: 'We regularly work with out-of-state owners and heirs. We coordinate remote online notarization (RON) or mobile notaries, and work alongside Florida probate attorneys whenever needed.',
+        faq4Q: 'Is there any cost or obligation to request an offer?',
+        faq4A: 'Zero cost and zero obligation. You review our written offer on your own time and decide what makes the most sense for your family and timeline.',
+        ctaTitle: 'Ready to See What Your South Florida Home Is Worth in Cash?',
+        ctaSub: 'Get a confidential, written offer within 24 hours—no repairs, no commissions, and no obligation.',
+        ctaBtn: 'Request My Cash Offer →',
+        ctaEmail: 'Email Our Team',
+        footerDiv: 'A Division of Triple1s Global, LLC · Miami-Dade & Broward Counties, FL',
+        disclosure: 'Disclosure: Triple1s Global, LLC (dba Triple1s Real Estate Solutions) is a real estate investment company acting strictly as a principal in the acquisition of properties and/or contractual equitable interests. We are not acting as licensed Florida real estate brokers or attorneys. All closings are conducted through licensed Florida title agencies or real estate closing attorneys.'
+      },
+      es: {
+        brandSub: 'Miami-Dade y Broward · Triple1s Global, LLC',
+        navCalc: 'Calculadora',
+        navSteps: 'Cómo Funciona',
+        navAreas: 'Áreas',
+        navFaq: 'Preguntas',
+        navCta: 'Oferta en Efectivo',
+        badge: 'Condados de Miami-Dade y Broward, Florida',
+        heroTitle: 'Venda Su Casa en el Sur de Florida Tal Como Está y en Efectivo.',
+        heroSub: 'Evite reparaciones, comisiones de agentes y meses esperando en el mercado. Triple1s Real Estate Solutions compra directamente en su plazo y cierra con una compañía de título licenciada en Florida.',
+        pill1Title: '0% Comisiones',
+        pill1Sub: 'Conserve más capital sin honorarios de agentes',
+        pill2Title: '100% Tal Como Está',
+        pill2Sub: 'Manejamos multas de código, permisos y reparaciones',
+        pill3Title: 'Cierre en 14 Días',
+        pill3Sub: 'O elija su fecha exacta de mudanza',
+        formTitle: 'Solicite Su Oferta en Efectivo Sin Compromiso',
+        formSub: 'Toma 60 segundos. Revisión directa y confidencial en 24 horas.',
+        lblAddr: 'Dirección de la Propiedad *',
+        lblZip: 'Ciudad / Código Postal *',
+        lblCond: 'Estado de la Propiedad',
+        lblName: 'Su Nombre Completo *',
+        lblPhone: 'Número de Teléfono *',
+        lblEmail: 'Correo Electrónico (Opcional)',
+        lblTimeline: 'Plazo de Cierre Preferido',
+        optMajor: 'Necesita Reparaciones Mayores',
+        optCosmetic: 'Necesita Mejoras Cosméticas',
+        optGood: 'Buen Estado / Con Inquilinos',
+        optAsap: 'Lo antes posible (14–21 días)',
+        opt30: '30–45 días',
+        optFlex: 'Flexible / Solo explorando',
+        phAddr: 'ej. 1420 NW 119th St',
+        phZip: 'ej. Miami, 33167',
+        phName: 'Nombre Completo',
+        phPhone: '(305) 555-0199',
+        phEmail: 'usted@correo.com',
+        formBtn: 'Obtener Mi Oferta en Efectivo →',
+        formPrivacy: '100% confidencial · Sin cargos · Sin compromiso de aceptar',
+        trust1: 'Compañía de Título Licenciada en FL',
+        trust2: 'Cierres Remotos y Notario Móvil',
+        trust4: 'Oferta Escrita en 24 Horas',
+        trust3: 'Atención 100% en Español',
+        calcEyebrow: 'Números Transparentes',
+        calcHeading: 'Estime Su Ganancia Neta: Efectivo vs. Venta Tradicional',
+        calcSub: 'Compare cómo las comisiones, gastos de cierre, reparaciones de su bolsillo y meses en el mercado afectan lo que realmente recibe.',
+        calcValLbl: 'Valor Renovado Estimado (ARV)',
+        calcRepLbl: 'Reparaciones / Techo / Permisos',
+        calcNote: '* Estimaciones basadas en 6% de comisión de agencia, 2% de gastos de cierre del vendedor y 3 meses de impuestos, seguro e hipoteca (~$7,500) durante una venta tradicional.',
+        calcTradTitle: 'Venta Tradicional con Agente',
+        calcSalePrice: 'Precio de Venta al Público',
+        calcComm: 'Comisiones de Agente (6%)',
+        calcClose: 'Cierre y 3 Meses de Gastos',
+        calcRepairs: 'Reparaciones de Su Bolsillo',
+        calcEstNet: 'Neto Est. (60–90+ Días)',
+        calcT1Title: 'Oferta Directa Triple1s',
+        calcAsIs: 'Rango en Efectivo Tal Como Está',
+        calcComm0: 'Comisiones de Realtor',
+        calcRep0: 'Reparaciones e Inspecciones',
+        calcHold0: 'Tiempo de Cierre',
+        calc14d: '14–21 Días',
+        calcFastNet: 'Rango Seguro en Efectivo',
+        calcCta: 'Solicitar Oferta Exacta →',
+        stepsEyebrow: 'Proceso Simple y Transparente',
+        stepsHeading: 'Cómo Funciona Vender a Triple1s',
+        stepsSub: 'Desde la primera llamada hasta la transferencia de fondos en el cierre, mantenemos cada paso claro y a su ritmo.',
+        s1Title: 'Comparta los Datos de Su Propiedad',
+        s1Body: 'Envíe su dirección arriba o escríbanos. Revisamos los registros públicos de Miami-Dade o Broward, permisos abiertos y comparables en 24 horas.',
+        s2Title: 'Reciba Una Oferta Escrita',
+        s2Body: 'Tras una breve visita de 15 minutos (o revisión por fotos para dueños fuera del estado), le entregamos una oferta clara y sin presiones.',
+        s3Title: 'Cierre en Compañía de Título',
+        s3Body: 'Abrimos custodia con una compañía de título reconocida del Sur de Florida (con notario remoto o móvil) y recibe sus fondos en la fecha elegida.',
+        sitTitle: 'Situaciones Que Ayudamos a Resolver',
+        sitSub: 'Sea cual sea la condición o situación legal de su propiedad, trabajamos con agencias de título locales para resolverlo sin complicaciones.',
+        sit1: 'Herencias y Sucesiones (Probate)',
+        sit1Desc: 'Coordinación con abogados de sucesión en Florida y herederos fuera del estado.',
+        sit2: 'Multas de Código y Permisos',
+        sit2Desc: 'Resolvemos gravámenes municipales y trabajos sin permiso sin adelantos.',
+        sit3: 'Impuestos Atrasados',
+        sit3Desc: 'Liquidamos impuestos pendientes directamente en el cierre antes de subasta.',
+        sit4: 'Alivio de Pre-Ejecución',
+        sit4Desc: 'Cierres rápidos diseñados para proteger su capital y su crédito.',
+        sit5: 'Propietarios con Inquilinos',
+        sit5Desc: 'Venda propiedades ocupadas tal como están sin esperar fin de contrato.',
+        sit6: 'Daños de Techo, Moho o Tormenta',
+        sit6Desc: 'Sin disputas de seguro, inspecciones de 4 puntos ni contratistas.',
+        compTitle: 'Triple1s vs. Venta Tradicional',
+        compSub: 'Compare la rapidez y certeza en efectivo frente a listar en el MLS.',
+        thFactor: 'Factor',
+        thT1: 'Triple1s Solutions',
+        thTrad: 'Agente Tradicional',
+        r1Col1: 'Comisiones / Cargos',
+        r1Col2: '$0 (Ninguno)',
+        r1Col3: '5% – 6% del precio',
+        r2Col1: 'Reparaciones y Permisos',
+        r2Col2: '100% Tal Como Está',
+        r2Col3: 'Créditos y exigencias',
+        r3Col1: 'Plazo de Cierre',
+        r3Col2: '14–21 Días (A su elección)',
+        r3Col3: '45–90+ Días',
+        r4Col1: 'Visitas y Privacidad',
+        r4Col2: '1 Visita Rápida',
+        r4Col3: 'Decenas de visitas públicas',
+        r5Col1: 'Riesgo de Financiamiento',
+        r5Col2: 'Ninguno (Efectivo)',
+        r5Col3: 'Riesgo de tasación o banco',
+        areaCaption: 'Adquisiciones Locales · Miami-Dade y Broward',
+        areasEyebrow: 'Experiencia Local',
+        areasTitle: 'Creado Específicamente para Propietarios de Miami-Dade y Broward.',
+        areasSub: 'El mercado del Sur de Florida tiene detalles propios: gravámenes municipales, permisos vencidos, requisitos de seguro de techo y HOA. Al comprar exclusivamente en Miami-Dade y Broward, ofrecemos precios justos y cierres seguros.',
+        miamiLabel: 'Condado de Miami-Dade',
+        browardLabel: 'Condado de Broward',
+        faqEyebrow: 'Respuestas Claras',
+        faqHeading: 'Preguntas Frecuentes',
+        faq1Q: '¿Debo arreglar multas de código, permisos abiertos o el techo antes de vender?',
+        faq1A: 'No. Compramos propiedades en Miami-Dade y Broward 100% tal como están. Nuestro equipo de título solicita búsquedas municipales desde el principio para que usted no gaste en reparaciones.',
+        faq2Q: '¿Cómo sé que el cierre es seguro y legítimo?',
+        faq2A: 'Cada cierre se realiza a través de una compañía de título licenciada en Florida o abogado inmobiliario. Los fondos se verifican en custodia y se transfieren directamente a su cuenta.',
+        faq3Q: '¿Qué pasa si vivo fuera de Florida o heredé una casa en sucesión?',
+        faq3A: 'Trabajamos frecuentemente con propietarios fuera del estado y herederos. Coordinamos notarización remota en línea (RON) o notario móvil, y colaboramos con abogados de sucesión en Florida.',
+        faq4Q: '¿Tiene algún costo o compromiso solicitar una oferta?',
+        faq4A: 'Cero costo y cero compromiso. Usted revisa nuestra oferta escrita con tranquilidad y decide lo mejor para su familia y su calendario.',
+        ctaTitle: '¿Listo Para Conocer el Valor en Efectivo de Su Casa en el Sur de Florida?',
+        ctaSub: 'Reciba una oferta escrita y confidencial en 24 horas—sin reparaciones, sin comisiones y sin compromiso.',
+        ctaBtn: 'Solicitar Mi Oferta →',
+        ctaEmail: 'Escribir al Equipo',
+        footerDiv: 'Una División de Triple1s Global, LLC · Condados de Miami-Dade y Broward, FL',
+        disclosure: 'Aviso Legal: Triple1s Global, LLC (dba Triple1s Real Estate Solutions) es una empresa de inversión inmobiliaria que actúa estrictamente como principal en la adquisición de propiedades y/o derechos contractuales equitativos. No actuamos como corredores inmobiliarios ni abogados con licencia en Florida. Todos los cierres se realizan mediante agencias de título o abogados licenciados en Florida.'
+      }
+    };
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.getElementById('lang-en').classList.toggle('is-active', lang === 'en');
+      document.getElementById('lang-es').classList.toggle('is-active', lang === 'es');
+      const dict = I18N[lang];
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.getElementById('f-addr').placeholder = dict.phAddr;
+      document.getElementById('f-zip').placeholder = dict.phZip;
+      document.getElementById('f-name').placeholder = dict.phName;
+      document.getElementById('f-phone').placeholder = dict.phPhone;
+      document.getElementById('f-email').placeholder = dict.phEmail;
+      updateCalculator();
+    }
+
+    function fmt$(n) {
+      return '$' + Math.round(Number(n) || 0).toLocaleString('en-US');
+    }
+
+    function updateRangeFill(input) {
+      const min = Number(input.min) || 0;
+      const max = Number(input.max) || 100;
+      const val = Number(input.value) || 0;
+      const pct = ((val - min) / (max - min)) * 100;
+      input.style.background = `linear-gradient(to right, #0F223D 0%, #0F223D ${pct}%, #E5DFD5 ${pct}%, #E5DFD5 100%)`;
+    }
+
+    function updateCalculator() {
+      const arvEl = document.getElementById('c-arv');
+      const repEl = document.getElementById('c-repairs');
+      const arv = Number(arvEl.value) || 375000;
+      const rep = Number(repEl.value) || 50000;
+
+      updateRangeFill(arvEl);
+      updateRangeFill(repEl);
+
+      document.getElementById('c-arv-out').textContent = fmt$(arv);
+      document.getElementById('c-repairs-out').textContent = fmt$(rep);
+
+      const comm = Math.round(arv * 0.06);
+      const closeHold = Math.round(arv * 0.02 + 7500);
+      const tradNet = Math.max(0, arv - comm - closeHold - rep);
+      const avoidedCosts = comm + closeHold + rep;
+
+      const cashLow = Math.max(0, Math.round(arv * 0.65 - rep));
+      const cashHigh = Math.max(cashLow, Math.round(arv * 0.72 - rep));
+
+      document.getElementById('ct-price').textContent = fmt$(arv);
+      document.getElementById('ct-comm').textContent = '-' + fmt$(comm);
+      document.getElementById('ct-close').textContent = '-' + fmt$(closeHold);
+      document.getElementById('ct-rep').textContent = '-' + fmt$(rep);
+      document.getElementById('ct-net').textContent = fmt$(tradNet);
+
+      const rangeText = `${fmt$(cashLow)} – ${fmt$(cashHigh)}`;
+      document.getElementById('c1-range').textContent = rangeText;
+      document.getElementById('c1-net').textContent = rangeText;
+
+      const avoidEl = document.getElementById('calc-avoid-text');
+      if (currentLang === 'es') {
+        avoidEl.innerHTML = `Evite <strong>${fmt$(avoidedCosts)}</strong> en comisiones, reparaciones y 3 meses de gastos antes de cobrar.`;
+      } else {
+        avoidEl.innerHTML = `Skip <strong>${fmt$(avoidedCosts)}</strong> in agent commissions, upfront repairs, and 3 months of holding costs.`;
+      }
+    }
+
+    function copySummary() {
+      if (!lastLeadSummary || !navigator.clipboard) return;
+      navigator.clipboard.writeText(lastLeadSummary).then(() => {
+        const btn = document.getElementById('copy-summary-btn');
+        if (btn) btn.textContent = currentLang === 'es' ? 'Copiado ✓' : 'Copied ✓';
+      });
+    }
+
+    async function submitOffer(e) {
+      e.preventDefault();
+      const addr = document.getElementById('f-addr').value.trim();
+      const zip = document.getElementById('f-zip').value.trim();
+      const condition = document.getElementById('f-cond').value;
+      const name = document.getElementById('f-name').value.trim();
+      const phone = document.getElementById('f-phone').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const timeline = document.getElementById('f-timeline').value;
+
+      const submitBtn = document.getElementById('submit-btn');
+      const prevText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = currentLang === 'es' ? 'Enviando...' : 'Submitting...';
+
+      let crmSynced = false;
+      let leadId = '';
+      const payload = { addr, zip, condition, name, phone, email, timeline };
+
+      // 1. Try local FastAPI CRM endpoint first
+      try {
+        const resp = await fetch('/api/website-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          crmSynced = true;
+          leadId = data.lead_id || '';
+        }
+      } catch (_) {
+        // Static hosting fallback below
+      }
+
+      // 2. Optional Formspree/Web3Forms endpoint for static hosting
+      if (!crmSynced && STATIC_FORM_ENDPOINT) {
+        try {
+          const resp = await fetch(STATIC_FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (resp.ok) crmSynced = true;
+        } catch (_) {}
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = prevText;
+
+      lastLeadSummary = [
+        `Property: ${addr} (${zip})`,
+        `Condition: ${condition}`,
+        `Timeline: ${timeline}`,
+        `Seller: ${name}`,
+        `Phone: ${phone}`,
+        `Email: ${email || 'N/A'}`
+      ].join('\n');
+
+      const subject = encodeURIComponent(`Cash Offer Request: ${addr} (${zip})`);
+      const body = encodeURIComponent(lastLeadSummary);
+      const mailtoHref = `mailto:info@triple1global.com?cc=Triple1sglobal@gmail.com&subject=${subject}&body=${body}`;
+
+      const res = document.getElementById('form-result');
+      res.classList.remove('is-hidden');
+
+      if (currentLang === 'es') {
+        res.innerHTML = `
+          <div class="form-result-title">${crmSynced ? `Solicitud Registrada${leadId ? ` (#${escHtml(leadId)})` : ''}` : 'Solicitud Lista Para Enviar'} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+          <div>Gracias, <strong>${escHtml(name)}</strong>. Nuestro equipo de <strong>Triple1s Real Estate Solutions</strong> revisará su propiedad y se comunicará al <strong>${escHtml(phone)}</strong> en menos de 24 horas.</div>
+          <div class="form-result-actions">
+            <a href="${mailtoHref}" class="btn btn--primary btn--sm">Enviar por Correo Ahora &rarr;</a>
+            <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copiar Resumen</button>
+          </div>
+        `;
+      } else {
+        res.innerHTML = `
+          <div class="form-result-title">${crmSynced ? `Request Logged${leadId ? ` (#${escHtml(leadId)})` : ''}` : 'Request Ready to Send'} &mdash; ${escHtml(addr)} (${escHtml(zip)})</div>
+          <div>Thank you, <strong>${escHtml(name)}</strong>. Our team at <strong>Triple1s Real Estate Solutions</strong> will review your property and reach out to <strong>${escHtml(phone)}</strong> within 24 hours.</div>
+          <div class="form-result-actions">
+            <a href="${mailtoHref}" class="btn btn--primary btn--sm">Email Request Now &rarr;</a>
+            <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">Copy Summary</button>
+          </div>
+        `;
+      }
+    }
+
+    updateCalculator();
+  </script>
+</body>
+</html>
