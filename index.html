@@ -506,7 +506,6 @@
         </div>
         <div class="footer-links">
           <a href="mailto:info@triple1global.com">info@triple1global.com</a>
-          <a href="mailto:Triple1sglobal@gmail.com">Triple1sglobal@gmail.com</a>
         </div>
       </div>
       <p class="footer-disclosure" data-i18n="disclosure">
@@ -986,7 +985,7 @@
 
       const subject = encodeURIComponent(`Cash Offer Request: ${addr} (${zip})`);
       const body = encodeURIComponent(lastLeadSummary);
-      const mailtoHref = `mailto:Triple1sglobal@gmail.com?cc=info@triple1global.com&subject=${subject}&body=${body}`;
+      const mailtoHref = `mailto:info@triple1global.com?subject=${subject}&body=${body}`;
 
       const res = document.getElementById('form-result');
       res.classList.remove('is-hidden');
@@ -1008,8 +1007,8 @@
         res.innerHTML = `
           <div class="form-result-title">${currentLang === 'es' ? 'Activación Única Requerida' : 'One-Time Form Activation Email Sent'}</div>
           <div>${currentLang === 'es'
-            ? 'FormSubmit envió un enlace único de activación a <strong>Triple1sglobal@gmail.com</strong>. Haga clic en "Activate Form" en ese correo y todas las solicitudes futuras llegarán automáticamente.'
-            : 'FormSubmit just sent a one-time activation link to <strong>Triple1sglobal@gmail.com</strong>. Click "Activate Form" in that email once, and all future leads will deliver straight to your inbox automatically.'}</div>
+            ? 'FormSubmit envió un enlace único de activación a <strong>info@triple1global.com</strong>. Haga clic en "Activate Form" en ese correo y todas las solicitudes futuras llegarán automáticamente.'
+            : 'FormSubmit just sent a one-time activation link to <strong>info@triple1global.com</strong>. Click "Activate Form" in that email once, and all future leads will deliver straight to your inbox automatically.'}</div>
           <div class="form-result-actions">
             <a href="${mailtoHref}" class="btn btn--primary btn--sm">${currentLang === 'es' ? 'Enviar Esta Solicitud por Correo →' : 'Email This Request Now →'}</a>
             <button id="copy-summary-btn" type="button" class="btn btn--outline btn--sm" onclick="copySummary()">${currentLang === 'es' ? 'Copiar Resumen' : 'Copy Summary'}</button>
