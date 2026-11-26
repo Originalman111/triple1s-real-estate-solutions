@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://triple1globalsolutions.com/sitemap.xml
