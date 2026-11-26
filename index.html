@@ -514,11 +514,10 @@
   </footer>
 
   <script>
-    // Free zero-signup email backend (activates on first test submission via email link)
-    const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/Triple1sglobal@gmail.com';
-    const FORMSUBMIT_CC = 'info@triple1global.com';
-    // Optional: Paste a Web3Forms Access Key (from https://web3forms.com) to route via Web3Forms instead
-    const WEB3FORMS_ACCESS_KEY = '';
+    // Live static-hosting email backend via Web3Forms (public access key alias)
+    const WEB3FORMS_ACCESS_KEY = 'd1eea06c-21d9-4317-ba8d-4a890519ed72';
+    const FORMSUBMIT_ENDPOINT = '';
+    const FORMSUBMIT_CC = '';
 
     let currentLang = 'en';
     let lastLeadSummary = '';
@@ -910,21 +909,25 @@
       // 2. Route via Web3Forms if an access key is configured
       if (!delivered && WEB3FORMS_ACCESS_KEY) {
         try {
+          const w3Payload = {
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: `New Cash Offer Request: ${addr} (${zip})`,
+            from_name: 'Triple1s Real Estate Website',
+            botcheck: false,
+            'Property Address': addr,
+            'City / Zip': zip,
+            'Condition': condition,
+            'Seller Name': name,
+            'Phone': phone,
+            'Email': email || 'Not provided',
+            'Closing Timeline': timeline
+          };
+          if (email) w3Payload.replyto = email;
+
           const resp = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-              access_key: WEB3FORMS_ACCESS_KEY,
-              subject: `New Cash Offer Request: ${addr} (${zip})`,
-              from_name: 'Triple1s Real Estate Website',
-              'Property Address': addr,
-              'City / Zip': zip,
-              'Condition': condition,
-              'Seller Name': name,
-              'Phone': phone,
-              'Email': email || 'Not provided',
-              'Closing Timeline': timeline
-            })
+            body: JSON.stringify(w3Payload)
           });
           const data = await resp.json().catch(() => ({}));
           if (resp.ok && data.success) {
