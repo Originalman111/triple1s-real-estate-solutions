@@ -19,18 +19,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Triple1s Real Estate Solutions",
-    "legalName": "Triple1s Global, LLC",
-    "url": "https://triple1globalsolutions.com/",
-    "telephone": "+1-727-658-8266",
-    "email": "info@triple1global.com",
-    "description": "Direct, as-is cash home buyer serving Miami-Dade and Broward Counties, Florida. Licensed Florida title company closings.",
-    "areaServed": [
-      { "@type": "AdministrativeArea", "name": "Miami-Dade County, FL" },
-      { "@type": "AdministrativeArea", "name": "Broward County, FL" }
-    ],
-    "knowsLanguage": ["en", "es"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Triple1s Real Estate Solutions",
+        "legalName": "Triple1s Global, LLC",
+        "url": "https://triple1globalsolutions.com/",
+        "telephone": "+1-727-658-8266",
+        "email": "info@triple1global.com",
+        "description": "Direct, as-is cash home buyer serving Miami-Dade and Broward Counties, statewide Florida vacant land buyer, and South Florida surplus recovery desk. Licensed Florida title company closings.",
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Miami-Dade County, FL" },
+          { "@type": "AdministrativeArea", "name": "Broward County, FL" },
+          { "@type": "State", "name": "Florida" }
+        ],
+        "knowsLanguage": ["en", "es"]
+      },
+      {
+        "@type": "Service",
+        "name": "Direct As-Is Cash Home Offers & Flexible Real Estate Solutions",
+        "provider": { "@type": "Organization", "name": "Triple1s Real Estate Solutions" },
+        "areaServed": ["Miami-Dade County, FL", "Broward County, FL", "Florida"],
+        "serviceType": ["As-Is Cash Home Buying", "Vacant Land Acquisition", "Probate & Code Violation Property Solutions", "Post-Closing Occupancy Sales"]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do I have to fix code violations, open permits, or roof issues before selling?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Triple1s Real Estate Solutions purchases Miami-Dade and Broward properties 100% as-is and handles municipal lien and permit searches upfront." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I know the closing is safe and legitimate?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Every closing is conducted through a licensed Florida title company or real estate closing attorney with verified escrow funds wired directly to the seller." }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I live out of state or inherited a property in probate?",
+            "acceptedAnswer": { "@type": "Answer", "text": "We work regularly with out-of-state owners and heirs, coordinating remote online notarization (RON) or mobile notaries alongside Florida probate attorneys." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there any cost or obligation to request an offer?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Zero cost and zero obligation. You review our written offer on your own schedule." }
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
