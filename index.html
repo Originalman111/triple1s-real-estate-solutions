@@ -907,24 +907,25 @@
       let leadId = '';
       const payload = { addr, zip, condition, name, phone, email, timeline };
 
-      // 1. Try local FastAPI CRM endpoint first (when running with Wholesale Terminal)
-      try {
-        const resp = await fetch('/api/website-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+      // 1. Sync to live Render CRM (fire-and-forget if sleeping, or immediate if awake) + Web3Forms email
+      const crmUrl = (location.hostname.includes('github.io') || location.hostname.includes('triple1globalsolutions.com'))
+        ? 'https://triple1s-wholesale-suite.onrender.com/api/website-lead'
+        : '/api/website-lead';
+
+      const crmPromise = fetch(crmUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(async (resp) => {
         if (resp.ok) {
           const data = await resp.json();
           delivered = true;
           leadId = data.lead_id || '';
         }
-      } catch (_) {
-        // Running on static hosting — proceed to FormSubmit / Web3Forms
-      }
+      }).catch(() => {});
 
-      // 2. Route via Web3Forms if an access key is configured
-      if (!delivered && WEB3FORMS_ACCESS_KEY) {
+      // 2. Always send via Web3Forms to info@triple1global.com as well
+      if (WEB3FORMS_ACCESS_KEY) {
         try {
           const w3Payload = {
             access_key: WEB3FORMS_ACCESS_KEY,

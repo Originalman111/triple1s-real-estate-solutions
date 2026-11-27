@@ -277,16 +277,17 @@
       btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Submitting...';
 
       let delivered = false;
-      try {
-        const resp = await fetch('/api/surplus-claim', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ county, sale_type, case_num, addr, name, phone, email })
-        });
-        if (resp.ok) delivered = true;
-      } catch (_) {}
+      const crmUrl = (location.hostname.includes('github.io') || location.hostname.includes('triple1globalsolutions.com'))
+        ? 'https://triple1s-wholesale-suite.onrender.com/api/surplus-claim'
+        : '/api/surplus-claim';
 
-      if (!delivered && WEB3FORMS_ACCESS_KEY) {
+      fetch(crmUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ county, sale_type, case_num, addr, name, phone, email })
+      }).then(r => { if (r.ok) delivered = true; }).catch(() => {});
+
+      if (WEB3FORMS_ACCESS_KEY) {
         try {
           const w3 = {
             access_key: WEB3FORMS_ACCESS_KEY,
